@@ -1,0 +1,51 @@
+#include <Adafruit_NeoPixel.h>
+
+#define PIN        6 // Pino de dados da fita de LED
+#define NUM_LEDS   80 // Número total de LEDs na fita
+#define BRIGHTNESS 50 // Brilho dos LEDs (0-255)
+
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
+
+#define MIC_PIN A0 // Pino do sensor de som
+#define MIC_THRESHOLD 50 // Threshold para detectar o som (ajuste conforme necessário)
+
+int waveSize = 5; // Tamanho da onda (número de LEDs acesos)
+int waveSpeed = 50; // Velocidade da onda (em milissegundos)
+int currentPos = 0; // Posição atual da onda
+int hue = 0; // Matiz inicial da cor da onda
+
+void setup() {
+  strip.begin();
+  strip.setBrightness(BRIGHTNESS);
+  strip.show(); // Inicializa todos os LEDs com a cor definida
+  pinMode(MIC_PIN, INPUT);
+}
+
+void loop() {
+  if (detectSound()) {
+    // Se detectar som, avança a onda
+    moveWave();
+  }
+}
+
+bool detectSound() {
+  // Função para detectar som
+  int sensorValue = analogRead(MIC_PIN);
+  return sensorValue > MIC_THRESHOLD;
+}
+
+void moveWave() {
+  // Move a onda
+  for (int i = 0; i < NUM_LEDS; i++) {
+    // Apaga todos os LEDs
+    strip.setPixelColor(i, 0);
+  }
+  // Liga os LEDs na posição atual da onda com a cor atualizada
+  for (int i = currentPos; i < currentPos + waveSize; i++) {
+    strip.setPixelColor(i % NUM_LEDS, strip.ColorHSV(hue, 255, 255)); // Cor com matiz variável
+  }
+  strip.show(); // Mostra as mudanças na fita de LED
+  delay(waveSpeed); // Delay para controlar a velocidade da onda
+  currentPos = (currentPos + 1) % NUM_LEDS; // Avança a posição da onda
+  hue = (hue + 10) % 65536; // Atualiza a matiz para a próxima iteração
+}
