@@ -2,6 +2,12 @@
 
 Este é um projeto simples para criar uma onda de luz em uma fita de LED RGB utilizando um Arduino Nano e um sensor de som.
 
+<video width="320" height="240" controls>
+  <source src="https://github.com/FabioSilva11/arduino-game-led/blob/main/b32bcb004945460a63399e8e0dbd4186.mp4" type="video/mp4">
+  Seu navegador não suporta o elemento de vídeo.
+</video>
+
+
 ## Materiais Necessários
 
 - 1 Arduino Nano
