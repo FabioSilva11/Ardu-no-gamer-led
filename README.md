@@ -6,7 +6,7 @@ Este é um projeto simples para criar uma onda de luz em uma fita de LED RGB uti
 
 - 1 Arduino Nano
 - 1 Fita de LED RGB WS2812 Endereçável Operação 5v 110v/220v
-- 1 Sensor de som (microfone ou módulo sensor de som)
+- 1 Módulo Detector Sensor De Som Microfone Lm393
 - Jumpers (fios)
 
 ## Bibliotecas Utilizadas
